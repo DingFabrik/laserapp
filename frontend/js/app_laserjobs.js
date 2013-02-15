@@ -77,12 +77,6 @@ $(document).ready(function(){
   var canvas = new Canvas('#preview_canvas');
   canvas.background('#ffffff');
 
-  $('#gcode_program').blur(function() {
-    var gcodedata = $('#gcode_program').val();
-    canvas.background('#ffffff'); 
-    GcodeReader.parse(gcodedata, 0.5);
-    GcodeReader.draw(canvas, '#000000');
-  });
   $('#preview_zoom_out').click(function(e) {
     if(zoom_scale <= 1) return false;
     redrawCanvas(--zoom_scale);
