@@ -41,7 +41,7 @@ function send_gcode_to_backend(gcode) {
 }
 
 
-
+var zoom_scale = 1;
 $(document).ready(function(){
 
   // populate queue from queue directory
@@ -109,5 +109,25 @@ $(document).ready(function(){
   	GcodeReader.parse(gcodedata, 0.25);
   	GcodeReader.draw(canvas, '#000000');
   });
+  $('#preview_zoom_out').click(function(e) {
+    if(zoom_scale <= 1) return false;
+    redrawCanvas(--zoom_scale);
+    return false;
+  });
+  $('#preview_zoom_in').click(function(e) {
+    redrawCanvas(++zoom_scale);
+    return false;
+  });
 
 });  // ready
+
+function redrawCanvas(scale) {
+	if(!scale) scale = 1;
+	scale = scale * 0.25
+	var canvas = new Canvas('#preview_canvas');
+	canvas.background('#ffffff');
+	var gcodedata = $('#gcode_program').val();
+	canvas.background('#ffffff'); 
+	GcodeReader.parse(gcodedata, scale);
+  	GcodeReader.draw(canvas, '#000000');
+}
