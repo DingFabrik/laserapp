@@ -60,17 +60,17 @@ function save_and_add_to_job_queue(name, gcode) {
     name = date.toDateString() +' - '+ queue_num_index
   }
   //// store gcode - on success add to queue
-	$.post("/queue/save", { 'gcode_name':name, 'gcode_program':gcode }, function(data) {
-		if (data == "1") {
-		  queue_num_index += 1;
-      add_to_job_queue(name);
-    } else if (data == "file_exists") {
-      // try again with numeral appendix
-      $().uxmessage('notice', "File already exists. Appending numeral.");
-      save_and_add_to_job_queue(name+' - '+ queue_num_index, gcode);
-		} else {
-			$().uxmessage('error', "Failed to store G-code.");
-		}
+  $.post("/queue/save", { 'gcode_name':name, 'gcode_program':gcode }, function(data) {
+     if (data == "1") {
+       queue_num_index += 1;
+       add_to_job_queue(name);
+     } else if (data == "file_exists") {
+       // try again with numeral appendix
+       $().uxmessage('notice', "File already exists. Appending numeral.");
+       save_and_add_to_job_queue(name+' '+new Date(), gcode);
+     } else {
+       $().uxmessage('error', "Failed to store G-code.");
+     }
   });
 }
 
