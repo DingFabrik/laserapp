@@ -4,44 +4,18 @@ function send_gcode_to_backend(gcode) {
     // $().uxmessage('notice', gcode.replace(/\n/g, '<br>'));
   	$.post("/gcode", { 'gcode_program':gcode }, function(data) {
   		if (data != "") {
-  			$().uxmessage('success', "G-Code sent to serial.");	
-  			// show progress bar, register live updates
-  			if ($("#progressbar").children().first().width() == 0) {
-  				$("#progressbar").children().first().width('5%');
-  				$("#progressbar").show();
-  				var progress_not_yet_done_flag = true;
-  			  var progresstimer = setInterval(function() {
-  					$.get('/queue_pct_done', function(data2) {
-  						if (data2.length > 0) {
-  							var pct = parseInt(data2);
-                $("#progressbar").children().first().width(pct+'%');  							
-  						} else {
-  						  if (progress_not_yet_done_flag) {
-    						  $("#progressbar").children().first().width('100%');
-    						  $().uxmessage('notice', "Done.");
-    						  progress_not_yet_done_flag = false;
-    						} else {
-    							$('#progressbar').hide();
-    							$("#progressbar").children().first().width(0); 
-    							clearInterval(progresstimer);
-    						}
-  						}
-  					});
-  			  }, 2000);
-  			}
+  			$().uxmessage('success', "G-Code sent to AXIS.");	
   		} else {
-  			//$().uxmessage('error', "Serial not connected");
-			// Dingfabrik Spezialexpertenhack
-  			$().uxmessage('success', "G-Code sent to AXIS");
+  			$().uxmessage('error', "An error occured while saving /tmp/gcode.ngc.");
   		}
     });  
   } else {
-    $().uxmessage('error', "No gcode.");
+    $().uxmessage('error', "No G-Code. Import a SVG first.");
   }
 }
 
 
-var zoom_scale = 1;
+var zoom_scale = 2;
 $(document).ready(function(){
 
   // populate queue from queue directory

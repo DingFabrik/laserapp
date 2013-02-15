@@ -270,9 +270,13 @@ def flash_firmware_handler():
 @route('/gcode', method='POST')
 def gcode_submit_handler():
     gcode_program = request.forms.get('gcode_program')
-    gcode = open("/tmp/gcode.ngc", 'w')
-    gcode.write(gcode_program)
-    gcode.write('\n')
+    try:
+        gcode = open("/tmp/gcode.ngc", 'w')
+        gcode.write(gcode_program)
+        gcode.write('\n')
+        return "Sent to AXIS."
+    except:
+        return ""
     '''try:
       c.abort()
       c.wait_complete()
