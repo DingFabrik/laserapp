@@ -88,9 +88,3 @@ Canvas.prototype.draw = function () {
 }
 
 
-///////////////////////////////////////////////
-// G-Code Drawer
-
-Canvas.prototype.drawGcode = function (gcode) {
-
-}
