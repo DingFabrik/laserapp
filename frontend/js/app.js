@@ -179,10 +179,10 @@ function add_to_library_queue(gcode, name) {
 
 
 function load_into_gcode_widget(gcode, name) {
-	$('#gcode_name').val(name);
 	$('#gcode_program').val(gcode);
 	// make sure preview refreshes
-	$('#gcode_program').trigger('blur');
+	redrawCanvas(4);
+	$('#gcode_name').val(name);
 }
 
 

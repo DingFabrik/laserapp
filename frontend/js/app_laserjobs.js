@@ -15,7 +15,7 @@ function send_gcode_to_backend(gcode) {
 }
 
 
-var zoom_scale = 2;
+var zoom_scale = 4;
 $(document).ready(function(){
 
   // populate queue from queue directory
@@ -80,8 +80,8 @@ $(document).ready(function(){
   $('#gcode_program').blur(function() {
     var gcodedata = $('#gcode_program').val();
     canvas.background('#ffffff'); 
-  	GcodeReader.parse(gcodedata, 0.25);
-  	GcodeReader.draw(canvas, '#000000');
+    GcodeReader.parse(gcodedata, 0.5);
+    GcodeReader.draw(canvas, '#000000');
   });
   $('#preview_zoom_out').click(function(e) {
     if(zoom_scale <= 1) return false;
@@ -96,7 +96,7 @@ $(document).ready(function(){
 });  // ready
 
 function redrawCanvas(scale) {
-	if(!scale) scale = 1;
+	if(!scale) scale = 4;
 	scale = scale * 0.25
 	var canvas = new Canvas('#preview_canvas');
 	canvas.background('#ffffff');
